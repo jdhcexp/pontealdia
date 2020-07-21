@@ -1,0 +1,38 @@
+@import "../../../../styles.scss";
+
+.modal-program {
+  .modal-content {
+    padding: 10px;
+    border-radius: 20px;
+    background-color: $white;
+    @media (min-width: 768px) {
+      background-image: url(/assets/icons/bg_acuerdo.svg);
+      background-position: center right;
+      background-repeat: no-repeat;
+    }
+  }
+  .title {
+    color: $black;
+    font-family: $din;
+    font-size: 24px;
+    line-height: 28px;    
+    @media(max-width:767px){
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+  small {
+    font-size: 11px;
+    color: $txt-gray;
+    font-family: $roboto;
+  }
+
+  .txt {
+    font-size: 14px;
+    color: $txt-gray;
+    font-family: $roboto;
+    span {
+      font-size: 18px !important;
+    }
+  }
+}

@@ -1,0 +1,116 @@
+<div class="container-fluid debt-main">
+	<div class="container pt-2 pt-md-5 mt-5">
+		<div class="row">
+			<div class="col-12 p-0">
+				<div class="title">
+					<div class="row">
+						<div class="col-12 col-md-12 order-0">
+							Administrador de deudas
+							<span *ngIf="debtsService.customerDebts?.responseObject.debts.length === 0" class="d-md-inline-block d-none">No tienes deudas por negociar</span>
+							<span *ngIf="debtsService.customerDebts?.responseObject.debts.length > 0" class="d-md-inline-block d-none">Tienes {{debtsService.customerDebts?.responseObject.debts.length}} deuda(s) por negociar</span>
+						</div>
+						<div class="col-12 col-md-12 d-block d-md-none order-2">
+							<span *ngIf="debtsService.customerDebts?.responseObject.debts.length === 0">No tienes deudas por negociar</span>
+							<span *ngIf="debtsService.customerDebts?.responseObject.debts.length > 0">Tienes {{debtsService.customerDebts?.responseObject.debts.length}} deuda(s) por negociar</span>
+						</div>
+						<div class="col-12 order-1">
+							<small>En Ponte al día podrás negociar las deudas que tengas pendientes con nuestras entidades aliadas</small>
+						</div>
+						<div class="col-12 order-3 d-block d-sm-none">
+							<a class="btn btn-filter mx-auto" data-toggle="modal" data-target="#filters">
+								<i class="fa fa-filter mr-2" aria-hidden="true"></i> Filtrar 
+							</a>
+						</div>
+						<div class="col-12 order-3 d-block d-sm-none text-left">
+							<div class="btn-company"></div>
+							<div class="btn-statusAll" ></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row pt-2 pt-md-3" *ngIf="debtsService.filteredItems">			
+			<div class="col-12 col-md-3 p-0 filter">				
+				<app-dfilters></app-dfilters>
+			</div>
+			<div class="col-12 col-md-9 p-0">
+				<div class="subtitle">Estas son las que puedes negociar</div>
+				<div class="row head-tb p-0">
+					<div class="col-3 align-self-center">Entidad/Estado</div>
+					<div class="col-3 align-self-center">Producto</div>
+					<div class="col-2 align-self-center">Tiempo y saldo <br>en mora</div>
+					<div class="col-2 align-self-center">Actualización</div>
+					<div class="col-2 align-self-center"></div>
+				</div>
+				<!-- *ngIf="debtsService.debt.debt.length > 0" -->
+				<div class="debt-wrap">
+					<div class="row debts" *ngFor="let item of debtsService.filteredItems">
+						<div class="col-12 col-md-3 debt-logo align-self-center">
+							<img src="https://images-s3-ecs-sp-latam.s3.amazonaws.com/catchupon/aliados/{{item.nitCompany}}.png" class="logo"
+								alt="Logo aliado"
+								onerror="this.onerror=null; this.remove();">
+							<div class="info">
+								<div class="entity">{{item.nameCompany}}</div>
+								<div class="state debt" [ngClass]="{
+								'ok': item.accountStatuts==='AL DIA',
+								'deb': item.accountStatuts==='EN MORA',
+								'neg': item.accountStatuts==='EN NEGOCIACION',
+								'acuerdo': item.accountStatuts==='CON ACUERDO'
+							}">
+									{{item.accountStatuts}}</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-3 debt-prod align-self-center">
+							<span class="title-mob">{{item.nameProduct}}</span>
+							<span class="d-block currencyM">CTA No. **** **** {{item.numberAccount}}</span>
+						</div>
+						<div class="col-12 col-md-2 debt-time align-self-center" *ngIf="item.accountStatuts==='EN NEGOCIACION'">
+							<span class="title-mob">Saldo en mora </span>
+							<span class="d-block currencyM">$ {{ item.arrangementAmount - item.totalPayment | currency:'COP':'':'1.2-2'}}</span>
+						</div>
+						<div class="col-12 col-md-2 debt-time align-self-center" *ngIf="item.accountStatuts==='CON ACUERDO'">
+							<span class="title-mob">Saldo en mora </span>
+							<span class="d-block currencyM">$ {{ item.arrangementAmount - item.totalPayment | currency:'COP':'':'1.2-2'}}</span>
+						</div>
+						<div class="col-12 col-md-2 debt-time align-self-center" *ngIf="item.accountStatuts==='AL DIA'">
+							<span class="title-mob">Saldo en mora </span>
+							<span>AL DIA</span>
+						</div>
+						<div class="col-12 col-md-2 debt-time align-self-center" *ngIf="item.accountStatuts==='EN MORA'">
+							<span class="title-mob">Tiempo en mora </span>
+							{{item.delinquencyInDays}} días
+							<span class="d-block currencyM">$ {{item.balance | currency:'COP':'':'1.2-2' }}</span>
+						</div>
+						<div class="col-12 col-md-2 debt-date align-self-center">
+							<span class="title-mob">Actualización </span>
+							<span class="d-block currencyM">{{item.dateDebt | date: 'dd MMMM yyyy' }}</span>
+						</div>
+						<div class="col-12 col-md-2 debt-cta align-self-center" *ngIf="item.accountStatuts == 'EN MORA'">
+							<a (click)="openDeal(item)" class="btn btn-secundary mx-auto">Ponte al día <i class="arrow right"></i></a>
+						</div>
+						<div class="col-12 col-md-2 debt-cta align-self-center" *ngIf="item.accountStatuts != 'EN MORA'">
+							<a (click)='verEstado(item.de, item.nitCompany, item.numberAccount)' class="btn btn-outline mx-auto">Ver estado <i class="arrow right"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="row other py-5">
+					<div class="col-9 col-md-5 mx-auto">
+						<img src="assets/icons/pontealdia.svg" class="icon" alt="">
+					</div>
+					<div class="col-10 col-md-7 mx-auto">
+						<div class="header">Tienes {{debtsService.customerDebts?.responseObject.countDebtsArrears}}
+							<!-- <div *ngIf="debtsService.customerDebts?.responseObject.countDebtsArrears === 0"> 0 deudas </div>
+							<div *ngIf="debtsService.customerDebts?.responseObject.countDebtsArrears !== 0"> {{debtsService.customerDebts?.responseObject.countDebtsArrears}} deudas </div> -->
+							deudas en mora con otras entidades</div>
+						<p>Si quieres saber más sobre estas obligaciones financieras, ingresa a
+							<strong>Midatacrédito.</strong></p>
+						<a href="https://www.midatacredito.com" target="_blank" class="btn btn-outline ">Ir a
+							MidataCrédito <i class="arrow right"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<app-deal></app-deal>

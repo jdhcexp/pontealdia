@@ -1,0 +1,67 @@
+@import "../../../../styles.scss";
+.filter-wrap {
+    color: #767579;
+    font-family: $roboto;
+    font-size: 13px;
+    .btn{
+      margin-top: 20px!important;
+      @media(max-width:767px){
+        width: 100%;
+      }
+    }
+    .badge {
+      background-color: #cecece;
+      border-radius: 10px;
+      padding: 5px 0;
+      width: 30px;
+      text-align: center;
+    }
+    .filter-title {
+      font-weight: 600;
+      margin-top: 15px;
+      display: block;
+    }
+    .filter-item {
+      margin-top: 5px;
+      .badge {
+        vertical-align: top;
+      }      
+    }
+    .form-check {
+      display: inline-block;
+      width: 80%;
+      padding-left: 10px;
+      @media(max-width:767px){
+        width: 85%;
+      }
+    }
+    .form-check-input {
+      right: 0;
+    }
+    .link-b{
+      display: block;
+      margin:15px auto;
+      background: transparent;
+      border: none;
+      color: $blue;
+    }
+    button{
+      display: block;
+      margin: auto;
+    }
+}
+
+.modal-header.filters {
+  padding: 0px 0px;
+}
+.modal-content.filters {
+  border-radius: 0;
+  border: 0;
+  padding: 10px 20px;
+}
+.modal-dialog.filters {
+    margin: 0;
+}
+.modal-body.filters{
+    padding: 0 15px;
+}

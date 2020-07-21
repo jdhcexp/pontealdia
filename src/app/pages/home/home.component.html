@@ -1,0 +1,168 @@
+<div class="container-fluid main">
+	<div class="container home">
+		<div class="row pt-5">
+			<div class="col-md-6 col-12 align-middle mt-5">
+				<div class="row">
+					<div class="col-12 col-md-10">
+						<div class="title">
+							<h1>Ponte al día con tus deudas en mora</h1>
+							<hr>
+						</div>
+					</div>
+					<div class="col-sm-10">
+						<!-- <p>Aquí podrás conocer tus deudas en mora, negociarlas y ponerte al día sin hacer filas o
+							recibir llamadas incómodas.
+						</p> -->
+						<p>Aquí podrás conocer tus deudas en mora, negociarlas según los descuentos que la entidad tenga
+							para ti y ponerte al día sin hacer filas o recibir llamadas incómodas<p>
+					</div>
+					<div class="col-12 col-md-10">
+						<a *ngIf="!sesion.sesionCookie" class="btn btn-secundary btn-lg" href="{{loginUrl}}">Empezar<i
+								class="arrow right"></i></a>
+						<button *ngIf="sesion.sesionCookie" type="submit" class="btn btn-secundary btn-lg"
+							data-toggle="modal" data-target="#modal-info">Empezar <i class="arrow right"></i></button>
+					</div>
+				</div>
+				<!-- <div class="img-mob col-6 d-block d-sm-none">
+					<object class="" type="image/svg+xml" data="assets/icons/pontealdia.svg">
+						Your browser does not support SVG
+					</object>
+					d-none d-md-block
+				</div> -->
+			</div>
+			<div class="col-md-6 col-12 img-header text-left pt-5 d-none d-md-block">
+				<object class="" type="image/svg+xml" data="assets/icons/pontealdia.svg">
+					Your browser does not support SVG
+				</object>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid">
+	<div class="container steps">
+		<div class="row">
+			<div class="col">
+				<div class="title-sec">
+					<h2>¿Cómo funciona Ponte al día?</h2>
+					<hr>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 item">
+				<object class="icon" type="image/svg+xml" data="assets/icons/consulta.svg">
+					Your browser does not support SVG
+				</object>
+				<div class="sub-title">
+					<h3>Consulta</h3>
+				</div>
+				<p>
+					Accede ilimitadamente para conocer con qué entidades tienes deudas en mora
+				</p>
+			</div>
+			<div class="col-md-4 item">
+				<object class="icon" type="image/svg+xml" data="assets/icons/negocia.svg">
+					Your browser does not support SVG
+				</object>
+				<div class="sub-title">
+					<h3>Negocia</h3>
+				</div>
+				<p>
+					Teniendo en cuenta tu situación financiera, podrás realizar una propuesta al banco para ponerte al
+					día.
+				</p>
+			</div>
+			<div class="col-md-4 item">
+				<object class="icon" type="image/svg+xml" data="assets/icons/confirma.svg">
+					Your browser does not support SVG
+				</object>
+				<div class="sub-title">
+					<h3>Confirma</h3>
+				</div>
+				<p>
+					Finaliza tu acuerdo de pago con la entidad y resuelve tus deudas de manera rápida y sin filas.
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="container allies">
+		<div class="row">
+			<div class="col">
+				<div class="title-sec">
+					<h2>Aliados Ponte al día</h2>
+					<hr>
+				</div>
+			</div>
+		</div>
+		<div class="row allies-item justify-content-center">
+			<div *ngFor="let al of dataJsonAliados" class="col-md-2  align-self-center">
+				<div class="allie-logo">
+					<img src="{{al.url}}" alt="{{al.aliado}}">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid main-faq">
+	<div class="container faq">
+		<div class="row">
+			<div class="col">
+				<div class="title-sec">
+					<h2>{{sesion.datos.faq?.titulo}}</h2>
+					<hr>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-sm-6">
+				<div class="img-faq">
+					<object class="icon" type="image/svg+xml" data="assets/icons/faq.svg">
+						Your browser does not support SVG
+					</object>
+				</div>
+			</div>
+			<div class="col-12 col-sm-6 ">
+				<div class="faq-txt">
+					<a href="" disabled class="faq-item">
+						<h3><i class="arrow right"></i>{{sesion.datos.faq?.txt1}}</h3>
+					</a>
+					<a href="" disabled class="faq-item ">
+						<h3><i class="arrow right"></i>{{sesion.datos.faq?.txt2}}</h3>
+					</a>
+					<a href="" disabled class="faq-item ">
+						<h3><i class="arrow right"></i>{{sesion.datos.faq?.txt3}}</h3>
+					</a>
+					<a href="" disabled class="faq-item ">
+						<h3><i class="arrow right"></i>{{sesion.datos.faq?.txt4}}</h3>
+					</a>
+					<div class="">
+						<a routerLink="/faq" target="_blank" class="btn btn-outline-w btn-lg">
+							Ver más preguntas
+							<i class="arrow right"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid midc">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-5 d-none d-sm-block ">
+				<object class="icon" type="image/svg+xml" data="assets/images/midtc.svg">
+					Your browser does not support SVG
+				</object>
+			</div>
+			<div class="col col-sm-6  ml-md-4">
+				<div class="sub-title">
+					<h2>{{sesion.datos.midatacredito?.titulo}}</h2>
+				</div>
+				<p class="text-left">{{sesion.datos.midatacredito?.texto}}</p>
+				<a href="https://urldefense.com/v3/__https://www.midatacredito?.com**A!*inicio__;LyMv!!MfzFaTml5A!2_fg_dUpyJbUR-0R_KydDny--CF33AT50mnSfoyJzOk27Mr8C4oSL9SpkQscFPvuX6qG$"
+					target="_blank" class="btn btn-dtc btn-lg">Ir a
+					MidataCrédito <i class="arrow right"></i></a>
+			</div>
+		</div>
+	</div>
+</div>
